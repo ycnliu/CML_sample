@@ -1,0 +1,55 @@
+# Java & Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# macOS
+.DS_Store
+
+# JNI compiled libraries
+*.so
+*.dylib
+*.dll
+*.o
+
+# Logs
+*.log
+
+# Docker
+*.pid
+*.tar
+*.gz
+/app/
+
+# VS Code
+.vscode/
+
+# Environment files
+.env
+*.env
+
+# Node (if any frontend)
+node_modules/
+
+# Backup files
+*~
+*.swp
+
+# Build tools
+build/
+dist/
+

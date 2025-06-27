@@ -1,0 +1,113 @@
+# 🌀 Spring Boot JNI Motion Controller API
+
+This project provides a RESTful Spring Boot interface to control motion hardware using a native C++ backend accessed via JNI.
+
+---
+
+## 📁 Directory Structure
+
+```
+sample_proj/
+├── cpp_wrapper/                   # Native JNI wrapper (C++ implementation)
+│   ├── MotionSystemWrapper.cpp
+│   ├── MotionController.cpp
+│   ├── CalibrationManager.cpp
+│   ├── libmotionwrapper.dylib     # Built JNI dynamic library
+│   ├── com/cml/wrapper/*.class    # Compiled JNI interface class
+│   └── Makefile
+└── spring-motion-api/            # Spring Boot REST API
+    ├── pom.xml
+    └── src/main/java/com/example/motion/
+        ├── MotionApiApplication.java
+        ├── MotionControllerApi.java
+        └── MotionControllerService.java
+```
+
+---
+
+## 🛠️ Build Process
+
+### 1. ✅ Build JNI Wrapper
+
+Navigate to the `cpp_wrapper` directory:
+
+```bash
+cd ../cpp_wrapper
+make -j
+```
+
+This compiles the native C++ source files and produces `libmotionwrapper.dylib`.
+
+> Ensure you have `g++` or `clang++` and the Java JDK installed.
+
+---
+
+### 2. ✅ Compile the JNI Java Class
+
+Still in `cpp_wrapper`, compile `MotionSystemWrapper.java` to generate the `.class` file in the correct package structure:
+
+```bash
+javac -d . com/cml/wrapper/MotionSystemWrapper.java
+```
+
+---
+
+### 3. ✅ Build and Run Spring Boot API
+
+Navigate to the Spring Boot project:
+
+```bash
+cd ../spring-motion-api
+mvn clean install
+```
+
+To run the Spring Boot application and ensure the native library is correctly loaded:
+
+```bash
+mvn spring-boot:run \
+  -Dspring-boot.run.jvmArguments="-Djava.library.path=../cpp_wrapper"
+```
+
+---
+
+## 🌐 API Usage
+
+### Initialize System
+
+```bash
+curl -X POST http://localhost:8080/motion/initialize
+```
+
+### Home All Axes
+
+```bash
+curl -X POST http://localhost:8080/motion/home
+```
+
+### Move to Specific Positions
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+  -d '[100.0, 200.0]' \
+  http://localhost:8080/motion/move
+```
+
+---
+
+## 📝 Notes
+
+- `libmotionwrapper.dylib` must be accessible via `java.library.path`.
+- You can also copy the `.dylib` to `/usr/local/lib` or export:
+  
+  ```bash
+  export DYLD_LIBRARY_PATH=../cpp_wrapper:$DYLD_LIBRARY_PATH
+  ```
+
+- Make sure JNI class names and package paths match exactly.
+
+---
+
+## 📍 Author
+
+Yuchen Liu 
+
