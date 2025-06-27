@@ -25,6 +25,16 @@ sample_proj/
 │   ├── test_TriggerHandler.cpp
 │   ├── test_SafetyMonitor.cpp
 │   └── test_Logger.cpp
+├── cpp_wrapper/              # C++ JNI wrapper and native dylib
+│   ├── MotionSystemWrapper.cpp
+│   ├── libmotionwrapper.dylib
+│   └── com/cml/wrapper/MotionSystemWrapper.java
+├── spring-motion-api/       # Spring Boot REST API
+│   ├── src/
+│   ├── pom.xml
+│   ├── Dockerfile
+│   └── target/motion-api-1.0.0.jar
+└── README.md
 ```
 
 ---
@@ -99,7 +109,65 @@ include(CTest)
 include(Catch)
 catch_discover_tests(run_tests)
 ```
+-------------------------------
+[🧩] Native C++ JNI Wrapper
+-------------------------------
+1. Navigate to cpp_wrapper:
+   $ cd cpp_wrapper
 
+2. Compile using your Makefile:
+   $ make
+
+3. Ensure that libmotionwrapper.dylib is generated.
+
+-------------------------------
+[🌱] Spring Boot REST API
+-------------------------------
+1. Build the JAR:
+   $ cd spring-motion-api
+   $ mvn clean install
+
+2. Run with JNI library path:
+   $ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Djava.library.path=../cpp_wrapper"
+
+-------------------------------
+[🚀] Docker Deployment
+-------------------------------
+1. Ensure motion-api-1.0.0.jar exists in target/
+
+2. Build Docker image:
+   $ docker build -t spring-motion-api .
+
+3. Run container (exposing port 8080):
+   $ docker run -p 8080:8080 spring-motion-api
+
+-------------------------------
+[🔗] API Endpoints
+-------------------------------
+POST /motion/initialize     -> Initialize all axes
+POST /motion/home           -> Home all axes
+POST /motion/move           -> Move to positions
+
+Example:
+   $ curl -X POST http://localhost:8080/motion/home
+
+To move axes:
+   $ curl -X POST -H "Content-Type: application/json" \
+     -d '[0.0, 50.0, 100.0]' http://localhost:8080/motion/move
+
+-------------------------------
+[📦] Requirements
+-------------------------------
+- Java 17+
+- C++ compiler
+- Maven
+- Docker
+- JNI-compatible OS (e.g., macOS for .dylib)
+
+-------------------------------
+[📝] License
+-------------------------------
+MIT License
 ---
 
 ## 🔧 Notes
