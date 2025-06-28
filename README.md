@@ -7,9 +7,9 @@ A modular C++ project simulating a multi-axis optical inspection system using a 
 ## 📁 Project Structure
 
 ```
+├── include/                     # C++ headers
+├── src/                         # C++ implementations
 ├── cpp_wrapper/                     # Native C++ logic + JNI interface
-│   ├── include/                     # C++ headers
-│   ├── src/                         # C++ implementations
 │   ├── MotionSystemWrapper.cpp     # JNI C++ bridge
 │   ├── libmotionwrapper.so         # Linux shared object
 │   ├── libmotionwrapper.dylib      # (Optional) macOS dynamic library
