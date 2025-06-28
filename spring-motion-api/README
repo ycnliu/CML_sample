@@ -92,6 +92,14 @@ curl -X POST -H "Content-Type: application/json" \
   http://localhost:8080/motion/move
 ```
 
+## Build and Start Docker Image
+
+```bash
+docker build -t spring-motion-api .
+docker run -p 8080:8080 spring-motion-api
+docker run -d -p 8080:8080 --name spring-motion-api spring-motion-api
+```
+
 ---
 
 ## 📝 Notes

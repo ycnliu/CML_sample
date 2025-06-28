@@ -14,7 +14,7 @@ EXPOSE 8080
 ENV JAVA_OPTS="-Djava.library.path=/app/libs"
 
 # Copy native library
-COPY ./libs/libmotionwrapper.dylib /app/libs/
+COPY ./libs/libmotionwrapper.so  /app/libs/
 # Run the app
 ENTRYPOINT ["java", "-Djava.library.path=/app/libs", "-jar", "app.jar"]
 
