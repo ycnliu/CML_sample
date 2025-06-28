@@ -7,34 +7,45 @@ A modular C++ project simulating a multi-axis optical inspection system using a 
 ## 📁 Project Structure
 
 ```
-sample_proj/
-├── CMakeLists.txt
-├── include/
-│   └── cml.h                     # Simulated CML interface
-├── src/
-│   ├── InspectionController.cpp  # Main entry point
-│   ├── MotionController.*        # Motion logic
-│   ├── CalibrationManager.*      # Calibration math
-│   ├── TriggerHandler.*          # Trigger I/O processing
-│   ├── SafetyMonitor.*           # Limit checking
-│   └── Logger.*                  # File logging
-├── tests/
-│   ├── main.cpp
-│   ├── test_MotionController.cpp
-│   ├── test_CalibrationManager.cpp
-│   ├── test_TriggerHandler.cpp
-│   ├── test_SafetyMonitor.cpp
-│   └── test_Logger.cpp
-├── cpp_wrapper/              # C++ JNI wrapper and native dylib
-│   ├── MotionSystemWrapper.cpp
-│   ├── libmotionwrapper.dylib
-│   └── com/cml/wrapper/MotionSystemWrapper.java
-├── spring-motion-api/       # Spring Boot REST API
+├── cpp_wrapper/                     # Native C++ logic + JNI interface
+│   ├── include/                     # C++ headers
+│   ├── src/                         # C++ implementations
+│   ├── MotionSystemWrapper.cpp     # JNI C++ bridge
+│   ├── libmotionwrapper.so         # Linux shared object
+│   ├── libmotionwrapper.dylib      # (Optional) macOS dynamic library
+│   ├── Makefile                    # Build rules for JNI library
+│   └── CMakeLists.txt              # (Optional) for CMake builds
+
+├── java_wrapper/                   # Pure Java JNI wrapper
+│   ├── com/cml/wrapper/            # Package structure
+│   │   └── MotionSystemWrapper.java
+│   ├── TestJNI.java                # Test entry point
+│   └── build/                      # Compiled .class files
+
+├── spring-motion-api/             # Spring Boot REST API
 │   ├── src/
-│   ├── pom.xml
-│   ├── Dockerfile
-│   └── target/motion-api-1.0.0.jar
-└── README.md
+│   │   ├── main/
+│   │   │   ├── java/com/example/motion/
+│   │   │   │   ├── controller/MotionController.java
+│   │   │   │   ├── service/MotionService.java
+│   │   │   │   └── MotionApiApplication.java
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   ├── target/
+│   │   └── motion-api-1.0.0.jar    # Built API
+│   ├── libs/
+│   │   └── libmotionwrapper.so     # JNI library to be loaded at runtime
+│   ├── Dockerfile                  # Builds Docker image
+│   ├── spring-motion-deployment.yaml  # Kubernetes deployment manifest
+│   ├── spring-motion-service.yaml     # Kubernetes service manifest
+│   └── pom.xml                     # Maven project descriptor
+
+├── scripts/                        # Optional helper scripts
+│   ├── build.sh
+│   └── run-local.sh
+
+└── README.md                       # Documentation
+
 ```
 
 ---
