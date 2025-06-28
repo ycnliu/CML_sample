@@ -56,7 +56,7 @@ This builds:
 
 ---
 
-## 🚀 Run the System
+##  Run the System
 
 ```bash
 ./InspectionController
@@ -66,7 +66,7 @@ This simulates 8 inspection cycles, with position calibration, motion execution,
 
 ---
 
-## ✅ Run Tests
+##  Run Tests
 
 ```bash
 ./run_tests
@@ -76,41 +76,9 @@ Unit tests are built on [Catch2 v3](https://github.com/catchorg/Catch2), fetched
 
 ---
 
-## 🧪 CMakeLists.txt Highlights
 
-```cmake
-# Add the main controller
-add_executable(InspectionController
-  src/InspectionController.cpp
-  src/MotionController.cpp
-  src/CalibrationManager.cpp
-  src/TriggerHandler.cpp
-  src/SafetyMonitor.cpp
-  src/Logger.cpp
-)
-target_include_directories(InspectionController PRIVATE include)
-
-# Add Catch2 for tests
-include(FetchContent)
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG v3.5.3
-)
-FetchContent_MakeAvailable(Catch2)
-
-# Unit test runner
-add_executable(run_tests
-  tests/main.cpp
-  tests/test_*.cpp
-)
-target_link_libraries(run_tests PRIVATE Catch2::Catch2WithMain)
-include(CTest)
-include(Catch)
-catch_discover_tests(run_tests)
-```
 -------------------------------
-[🧩] Native C++ JNI Wrapper
+Native C++ JNI Wrapper
 -------------------------------
 1. Navigate to cpp_wrapper:
    $ cd cpp_wrapper
@@ -121,7 +89,7 @@ catch_discover_tests(run_tests)
 3. Ensure that libmotionwrapper.dylib is generated.
 
 -------------------------------
-[🌱] Spring Boot REST API
+Spring Boot REST API
 -------------------------------
 1. Build the JAR:
    $ cd spring-motion-api
@@ -131,7 +99,7 @@ catch_discover_tests(run_tests)
    $ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Djava.library.path=../cpp_wrapper"
 
 -------------------------------
-[🚀] Docker Deployment
+Docker Deployment
 -------------------------------
 1. Ensure motion-api-1.0.0.jar exists in target/
 
@@ -142,7 +110,7 @@ catch_discover_tests(run_tests)
    $ docker run -p 8080:8080 spring-motion-api
 
 -------------------------------
-[🔗] API Endpoints
+API Endpoints
 -------------------------------
 POST /motion/initialize     -> Initialize all axes
 POST /motion/home           -> Home all axes
@@ -156,7 +124,7 @@ To move axes:
      -d '[0.0, 50.0, 100.0]' http://localhost:8080/motion/move
 
 -------------------------------
-[📦] Requirements
+Requirements
 -------------------------------
 - Java 17+
 - C++ compiler
@@ -165,7 +133,7 @@ To move axes:
 - JNI-compatible OS (e.g., macOS for .dylib)
 
 -------------------------------
-[📝] License
+License
 -------------------------------
 MIT License
 ---
