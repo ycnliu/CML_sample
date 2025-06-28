@@ -21,8 +21,6 @@ bin/
 .DS_Store
 
 # JNI compiled libraries
-*.so
-*.dylib
 *.dll
 *.o
 
