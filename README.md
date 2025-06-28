@@ -1,4 +1,4 @@
-# 🧠 CML Optical Inspection Controller
+# CML Sample for Motor Controller with JNI and Docker integration
 
 A modular C++ project simulating a multi-axis optical inspection system using a mock CML (Copley Motion Library) API. This demonstrates real-world design patterns with clear modular separation and testability.
 
