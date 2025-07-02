@@ -101,6 +101,16 @@ docker run -d -p 8080:8080 --name spring-motion-api spring-motion-api
 ```
 
 ---
+## k8s usage
+
+kubectl apply -f spring-motion-deployment.yaml
+
+kubectl get pods
+kubectl get svc
+
+kubectl describe pod spring-motion-api-[API-POD-ID]
+
+curl -X POST http://localhost:[SERVICE-PORT]/motion/initialize
 
 ## 📝 Notes
 
